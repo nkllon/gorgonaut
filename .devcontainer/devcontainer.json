@@ -1,0 +1,39 @@
+{
+	"name": "gorgonaut-${localWorkspaceFolderBasename}",
+	"dockerComposeFile": [
+		"../docker-compose.yml"
+	],
+	"service": "python-validate",
+	"workspaceFolder": "/workspace",
+	"remoteUser": "root",
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils:2": {},
+		"ghcr.io/devcontainers/features/node:1": {
+			"version": "20"
+		},
+		"ghcr.io/devcontainers/features/python:1": {
+			"version": "3.12"
+		}
+	},
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"terminal.integrated.defaultProfile.linux": "bash"
+			},
+			"extensions": [
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				"esbenp.prettier-vscode",
+				"dbaeumer.vscode-eslint"
+			]
+		}
+	},
+	"mounts": [
+		"source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached"
+	],
+	"postCreateCommand": "make py.install js.install",
+	"runServices": [
+		"python-validate"
+	]
+}
+

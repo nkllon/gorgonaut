@@ -1,0 +1,4 @@
+@prefix : <http://example.org/gorgonaut#> .
+@prefix ex: <http://example.org/gorgonaut/example#> .
+
+

@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gorgonaut"
+version = "0.1.0"
+description = "Gorgonaut monorepo Python package (uv-managed) for ontology and tooling."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Gorgonaut Contributors" }]
+dependencies = [
+  "rdflib>=7.0.0",
+  "pyshacl>=0.25.0",
+  "openapi-spec-validator>=0.7.1",
+  "python-dotenv>=1.0.1",
+  "graphviz>=0.20.3",
+  "pydot>=3.0.2",
+]
+
+[project.optional-dependencies]
+dev = [
+  "ruff>=0.6.9",
+  "black>=24.10.0",
+  "mypy>=1.13.0",
+  "pytest>=8.3.3",
+  "types-python-dotenv",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_unused_configs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+disallow_untyped_defs = true
+no_implicit_optional = true
+strict_optional = true
+check_untyped_defs = true
+ignore_missing_imports = true
+
+

@@ -1,0 +1,12 @@
+openapi: 3.0.3
+info:
+  title: Gorgonaut API
+  version: 0.0.1
+paths:
+  /health:
+    get:
+      summary: Health check
+      responses:
+        "200":
+          description: OK
+

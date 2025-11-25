@@ -1,0 +1,15 @@
+node_modules
+dist
+build
+.git
+.venv
+.uv
+.mypy_cache
+.pytest_cache
+.ruff_cache
+__pycache__
+*.log
+*.tmp
+.DS_Store
+.devcontainer/.cache
+

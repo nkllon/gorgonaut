@@ -1,0 +1,17 @@
+{
+  "name": "@gorgonaut/lib",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "node --version && echo \"no tests yet\""
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3"
+  }
+}
+

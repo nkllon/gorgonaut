@@ -1,0 +1,302 @@
+@prefix :    <http://example.org/gorgonaut#> .
+@prefix gorgo: <http://example.org/gorgonaut#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:<http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+@base <http://example.org/gorgonaut> .
+
+<http://example.org/gorgonaut> a owl:Ontology ;
+    rdfs:label "Gorgonaut / Mind Tools Ontology"@en ;
+    rdfs:comment "Ontology derived from Mind Tools meta-skills, tools, problems, outcomes, stakeholders, and the Gorgonaut expert-system framing."@en .
+
+#################################################################
+# CLASSES
+#################################################################
+
+:MindTool a owl:Class ;
+    rdfs:label "Mind tool"@en ;
+    rdfs:comment "Any cognitive or practical tool described in the Mind Tools corpus (book-level or individual techniques)."@en .
+
+:Book a owl:Class ;
+    rdfs:label "Book"@en ;
+    rdfs:comment "A book or document that aggregates mind tools and meta-skills."@en .
+
+:MetaSkill a owl:Class ;
+    rdfs:label "Meta-skill"@en ;
+    rdfs:comment "High-level, transferable capability such as creativity, decision-making, project management, etc."@en .
+
+:Module a owl:Class ;
+    rdfs:label "Module"@en ;
+    rdfs:comment "A logical module or chapter grouping tools around a meta-skill."@en .
+
+:Tool a owl:Class ;
+    rdfs:subClassOf :MindTool ;
+    rdfs:label "Tool"@en ;
+    rdfs:comment "An individual technique or framework (e.g., SCAMPER, SWOT, Gantt chart)."@en .
+
+:ProblemType a owl:Class ;
+    rdfs:label "Problem type"@en ;
+    rdfs:comment "Canonical problem statements that users face and that the tools aim to mitigate."@en .
+
+:SolutionPattern a owl:Class ;
+    rdfs:label "Solution pattern"@en ;
+    rdfs:comment "Abstract pattern of solution, often instantiated by specific tools."@en .
+
+:Outcome a owl:Class ;
+    rdfs:label "Outcome"@en ;
+    rdfs:comment "Desired result from using tools and meta-skills (clarity, better decisions, etc.)."@en .
+
+:Stakeholder a owl:Class ;
+    rdfs:label "Stakeholder"@en ;
+    rdfs:comment "Any actor involved in or impacted by the use of tools or expert system."@en .
+
+:StakeholderRole a owl:Class ;
+    rdfs:label "Stakeholder role"@en ;
+    rdfs:comment "Role category for stakeholders (e.g., individual knowledge worker, manager)."@en .
+
+:StakeholderNeed a owl:Class ;
+    rdfs:label "Stakeholder need"@en ;
+    rdfs:comment "Need, pain point, or requirement expressed by a stakeholder role."@en .
+
+:ExpertSystem a owl:Class ;
+    rdfs:label "Expert system"@en ;
+    rdfs:comment "Context-aware, stakeholder-sensitive, adaptive expert system built on top of the Mind Tools ontology."@en .
+
+:SystemLayer a owl:Class ;
+    rdfs:label "System layer"@en ;
+    rdfs:comment "Logical layer in the expert system architecture."@en .
+
+:ContextEngine a owl:Class ;
+    rdfs:subClassOf :SystemLayer ;
+    rdfs:label "Context engine"@en ;
+    rdfs:comment "Layer that ingests signals and frames the problem context."@en .
+
+:ToolSynthesisEngine a owl:Class ;
+    rdfs:subClassOf :SystemLayer ;
+    rdfs:label "Tool synthesis engine"@en ;
+    rdfs:comment "Layer that selects and composes tools into workflows."@en .
+
+:DecisionActionLayer a owl:Class ;
+    rdfs:subClassOf :SystemLayer ;
+    rdfs:label "Decision/action layer"@en ;
+    rdfs:comment "Layer that produces decisions, plans, workflows and communication artifacts."@en .
+
+:CapabilityBuildingLayer a owl:Class ;
+    rdfs:subClassOf :SystemLayer ;
+    rdfs:label "Capability building layer"@en ;
+    rdfs:comment "Layer that tracks skills, gaps, and reinforces meta-skills over time."@en .
+
+:ContextSignal a owl:Class ;
+    rdfs:label "Context signal"@en ;
+    rdfs:comment "Any signal describing current task, emotional state, constraints, etc."@en .
+
+:SystemOutput a owl:Class ;
+    rdfs:label "System output"@en ;
+    rdfs:comment "Structured output artifact from the expert system (e.g., framed problem, plan, decision)."@en .
+
+:CapabilityMetric a owl:Class ;
+    rdfs:label "Capability metric"@en ;
+    rdfs:comment "Metric used to assess improvements in meta-skills and performance."@en .
+
+:Evaluation a owl:Class ;
+    rdfs:label "Evaluation"@en ;
+    rdfs:comment "An evaluation instance where tools or the expert system are assessed."@en .
+
+:Risk a owl:Class ;
+    rdfs:label "Risk"@en ;
+    rdfs:comment "Risk or issue associated with using a tool or system."@en .
+
+:MythicConcept a owl:Class ;
+    rdfs:label "Mythic concept"@en ;
+    rdfs:comment "Mythological or symbolic concept used in branding or metaphor."@en .
+
+:BrandRole a owl:Class ;
+    rdfs:label "Brand role"@en ;
+    rdfs:comment "Role that a mythic concept or symbol plays in branding (system name, user archetype, etc.)."@en .
+
+#################################################################
+# CLASS DISJOINTNESS (MAIN TOP-LEVEL CLASSES)
+#################################################################
+
+[ a owl:AllDisjointClasses ;
+  owl:members ( :MetaSkill :Module :Tool :ProblemType :SolutionPattern
+                :Outcome :Stakeholder :ExpertSystem :SystemLayer
+                :ContextSignal :SystemOutput :CapabilityMetric
+                :MythicConcept :BrandRole :Risk :StakeholderNeed :StakeholderRole :Book )
+] .
+
+#################################################################
+# OBJECT PROPERTIES
+#################################################################
+
+:hasModule a owl:ObjectProperty ;
+    rdfs:label "has module"@en ;
+    rdfs:domain :MindTool ;
+    rdfs:range :Module ;
+    rdfs:comment "Relates a mind tool corpus (e.g., a book) to its modules."@en .
+
+:implementsMetaSkill a owl:ObjectProperty ;
+    rdfs:label "implements meta-skill"@en ;
+    rdfs:domain :Module ;
+    rdfs:range :MetaSkill ;
+    rdfs:comment "Relates a module to the meta-skill it primarily targets."@en .
+
+:groupsTool a owl:ObjectProperty ;
+    rdfs:label "groups tool"@en ;
+    rdfs:domain :Module ;
+    rdfs:range :Tool ;
+    rdfs:comment "Relates a module to individual tools contained within it."@en .
+
+:supportsMetaSkill a owl:ObjectProperty ;
+    rdfs:label "supports meta-skill"@en ;
+    rdfs:domain :Tool ;
+    rdfs:range :MetaSkill ;
+    rdfs:comment "Relates a tool to the meta-skill it helps develop."@en .
+
+:addressesProblem a owl:ObjectProperty ;
+    rdfs:label "addresses problem"@en ;
+    rdfs:domain :Tool ;
+    rdfs:range :ProblemType ;
+    rdfs:comment "Relates a tool to the canonical problem type it addresses."@en .
+
+:instantiatesPattern a owl:ObjectProperty ;
+    rdfs:label "instantiates solution pattern"@en ;
+    rdfs:domain :Tool ;
+    rdfs:range :SolutionPattern ;
+    rdfs:comment "Relates a tool to the abstract solution pattern it instantiates."@en .
+
+:mitigatedBy a owl:ObjectProperty ;
+    rdfs:label "mitigated by"@en ;
+    rdfs:domain :ProblemType ;
+    rdfs:range :SolutionPattern ;
+    owl:inverseOf :mitigates ;
+    rdfs:comment "Relates a problem type to a solution pattern that mitigates it."@en .
+
+:mitigates a owl:ObjectProperty ;
+    rdfs:label "mitigates"@en ;
+    rdfs:domain :SolutionPattern ;
+    rdfs:range :ProblemType ;
+    rdfs:comment "Relates a solution pattern to a problem type it mitigates."@en .
+
+:aimsAtOutcome a owl:ObjectProperty ;
+    rdfs:label "aims at outcome"@en ;
+    rdfs:domain :Tool ;
+    rdfs:range :Outcome ;
+    rdfs:comment "Relates a tool to outcomes it is intended to achieve."@en .
+
+:contributesToOutcome a owl:ObjectProperty ;
+    rdfs:label "contributes to outcome"@en ;
+    rdfs:domain :MetaSkill ;
+    rdfs:range :Outcome ;
+    rdfs:comment "Relates a meta-skill to outcomes that improved capability in that meta-skill contributes to."@en .
+
+:hasRole a owl:ObjectProperty ;
+    rdfs:label "has role"@en ;
+    rdfs:domain :Stakeholder ;
+    rdfs:range :StakeholderRole ;
+    rdfs:comment "Relates a stakeholder to its role category."@en .
+
+:hasNeed a owl:ObjectProperty ;
+    rdfs:label "has need"@en ;
+    rdfs:domain :Stakeholder ;
+    rdfs:range :StakeholderNeed ;
+    rdfs:comment "Relates a stakeholder to a need or requirement."@en .
+
+:servedBy a owl:ObjectProperty ;
+    rdfs:label "served by"@en ;
+    rdfs:domain :Stakeholder ;
+    rdfs:range :ExpertSystem ;
+    owl:inverseOf :servesStakeholder ;
+    rdfs:comment "Relates a stakeholder to an expert system that serves it."@en .
+
+:servesStakeholder a owl:ObjectProperty ;
+    rdfs:label "serves stakeholder"@en ;
+    rdfs:domain :ExpertSystem ;
+    rdfs:range :Stakeholder ;
+    rdfs:comment "Relates an expert system to stakeholders it serves."@en .
+
+:hasLayer a owl:ObjectProperty ;
+    rdfs:label "has layer"@en ;
+    rdfs:domain :ExpertSystem ;
+    rdfs:range :SystemLayer ;
+    rdfs:comment "Relates an expert system to a system layer in its architecture."@en .
+
+:ingestsSignal a owl:ObjectProperty ;
+    rdfs:label "ingests signal"@en ;
+    rdfs:domain :ContextEngine ;
+    rdfs:range :ContextSignal ;
+    rdfs:comment "Relates a context engine to context signals it ingests."@en .
+
+:producesOutput a owl:ObjectProperty ;
+    rdfs:label "produces output"@en ;
+    rdfs:domain :SystemLayer ;
+    rdfs:range :SystemOutput ;
+    rdfs:comment "Relates a system layer to the outputs it produces."@en .
+
+:improvesMetric a owl:ObjectProperty ;
+    rdfs:label "improves metric"@en ;
+    rdfs:domain :ExpertSystem ;
+    rdfs:range :CapabilityMetric ;
+    rdfs:comment "Relates an expert system to capability metrics it is designed to improve."@en .
+
+:posesRisk a owl:ObjectProperty ;
+    rdfs:label "poses risk"@en ;
+    rdfs:domain :MindTool ;
+    rdfs:range :Risk ;
+    rdfs:comment "Relates a mind tool to risks or issues associated with its misuse or limitations."@en .
+
+:hasMythicConcept a owl:ObjectProperty ;
+    rdfs:label "has mythic concept"@en ;
+    rdfs:domain :ExpertSystem ;
+    rdfs:range :MythicConcept ;
+    rdfs:comment "Relates an expert system to a mythic concept used for its branding or metaphor."@en .
+
+:assignedBrandRole a owl:ObjectProperty ;
+    rdfs:label "assigned brand role"@en ;
+    rdfs:domain :MythicConcept ;
+    rdfs:range :BrandRole ;
+    rdfs:comment "Relates a mythic concept to the role it plays in branding."@en .
+
+:evaluatesTool a owl:ObjectProperty ;
+    rdfs:label "evaluates tool"@en ;
+    rdfs:domain :Evaluation ;
+    rdfs:range :MindTool ;
+    rdfs:comment "Relates an evaluation instance to the mind tool being evaluated."@en .
+
+:usesFramework a owl:ObjectProperty ;
+    rdfs:label "uses framework"@en ;
+    rdfs:domain :Evaluation ;
+    rdfs:range :ExpertSystem ;
+    rdfs:comment "Relates an evaluation to the expert system or framework used."@en .
+
+#################################################################
+# DATATYPE PROPERTIES
+#################################################################
+
+:hasName a owl:DatatypeProperty ;
+    rdfs:label "has name"@en ;
+    rdfs:domain owl:Thing ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Human-readable name of an entity (tool, module, meta-skill, etc.)."@en .
+
+:hasDescription a owl:DatatypeProperty ;
+    rdfs:label "has description"@en ;
+    rdfs:domain owl:Thing ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Textual description of an entity."@en .
+
+:hasWeight a owl:DatatypeProperty ;
+    rdfs:label "has weight"@en ;
+    rdfs:domain :SolutionPattern ;
+    rdfs:range xsd:decimal ;
+    rdfs:comment "Relative weight or importance attached to a solution pattern."@en .
+
+:hasIdentifier a owl:DatatypeProperty ;
+    rdfs:label "has identifier"@en ;
+    rdfs:domain owl:Thing ;
+    rdfs:range xsd:string ;
+    rdfs:comment "String identifier used for integration with external systems."@en .
+
+
