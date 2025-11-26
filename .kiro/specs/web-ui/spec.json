@@ -1,0 +1,8 @@
+{
+  "name": "web-ui",
+  "description": "React-based web application for tool discovery, search, recommendations, and capability tracking",
+  "language": "en",
+  "status": "requirements",
+  "created": "2025-11-26",
+  "updated": "2025-11-26"
+}

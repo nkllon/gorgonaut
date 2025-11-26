@@ -1,0 +1,8 @@
+{
+  "name": "tool-recommendation-api",
+  "description": "RESTful API for tool discovery, problem-to-solution matching, and workflow generation using the expert system",
+  "language": "en",
+  "status": "requirements",
+  "created": "2025-11-26",
+  "updated": "2025-11-26"
+}

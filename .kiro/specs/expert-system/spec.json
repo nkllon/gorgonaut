@@ -1,0 +1,8 @@
+{
+  "name": "expert-system",
+  "description": "Implement the four-layer expert system architecture (Context Engine, Tool Synthesis Engine, Decision/Action Layer, Capability Building Layer) for intelligent tool recommendation and workflow generation",
+  "language": "en",
+  "status": "requirements",
+  "created": "2025-11-26",
+  "updated": "2025-11-26"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "ontology-population",
+  "description": "Populate the Mind Tools ontology with real data from books, modules, tools, meta-skills, and problem-solution mappings",
+  "language": "en",
+  "status": "requirements",
+  "created": "2025-11-26",
+  "updated": "2025-11-26"
+}
