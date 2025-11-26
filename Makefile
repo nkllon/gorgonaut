@@ -1,4 +1,7 @@
-.PHONY: uv py.install py.lint py.type py.test spec.ontology.validate spec.api.validate js.install js.lint js.test web.dev ci ci-docker
+.PHONY: install uv py.install py.lint py.type py.test spec.ontology.validate spec.api.validate js.install js.lint js.test web.dev ci ci-docker
+
+install: py.install js.install
+	@echo "✓ All dependencies installed"
 
 uv:
 	@command -v uv >/dev/null 2>&1 || (echo "Installing uv..." && curl -LsSf https://astral.sh/uv/install.sh | sh)
