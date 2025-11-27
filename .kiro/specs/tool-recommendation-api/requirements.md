@@ -197,4 +197,4 @@ This specification defines the requirements for a RESTful API that exposes the G
 2. WHEN authentication is missing THEN the system SHALL return HTTP status 401 with authentication challenge
 3. WHEN authentication is invalid THEN the system SHALL return HTTP status 403 with error message
 4. WHEN public endpoints are accessed THEN the system SHALL allow requests without authentication
-5. WHERE authentication is implemented THEN the system SHALL support API key or JWT token mechanisms
+5. WHEN authentication is implemented THEN the system SHALL support API key or JWT token mechanisms
