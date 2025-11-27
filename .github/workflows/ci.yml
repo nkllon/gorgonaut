@@ -21,23 +21,6 @@ jobs:
           curl -LsSf https://astral.sh/uv/install.sh | sh -s -- -y
           echo "$HOME/.local/bin" >> $GITHUB_PATH
 
-      - name: Python deps (uv)
-        run: |
-          uv pip install -e "python/.[dev]"
-
-      - name: Lint/Type/Test (Python)
-        run: |
-          uvx ruff check python/src python/tests
-          uvx black --check python/src python/tests
-          uvx mypy --config-file python/pyproject.toml python/src
-          uvx pytest -q || true
-
-      - name: Validate SHACL
-        run: uv run -m gorgonaut.tools.validate_shacl
-
-      - name: Validate OpenAPI
-        run: uv run -m gorgonaut.tools.validate_openapi
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -45,14 +28,8 @@ jobs:
           cache: "npm"
           cache-dependency-path: "js/package-lock.json"
 
-      - name: JS install
-        working-directory: js
-        run: npm ci || npm i
-
-      - name: JS lint/test
-        working-directory: js
+      - name: Run CI via Makefile
         run: |
-          npx --yes eslint . || true
-          (cd packages/lib && npm test || true)
+          make ci
 
 
