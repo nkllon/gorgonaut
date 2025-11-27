@@ -111,7 +111,7 @@ This specification defines the requirements for populating the Gorgonaut Mind To
 2. WHEN a new meta-skill domain is added THEN the system SHALL create a new .ttl file without modifying existing files
 3. WHEN data files are loaded THEN the system SHALL merge all instances into a single coherent graph
 4. WHEN file organization is reviewed THEN the system SHALL follow the structure defined in structure.md
-5. WHERE example data exists THEN the system SHALL maintain it in specs/ontology/data/examples.ttl separate from production data
+5. WHEN example data exists THEN the system SHALL maintain it in specs/ontology/data/examples.ttl separate from production data
 
 ### Requirement 9
 
