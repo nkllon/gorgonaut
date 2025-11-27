@@ -8,6 +8,7 @@ services:
     command: >
       bash -lc "apt-get update &&
       apt-get install -y --no-install-recommends graphviz &&
+      python -m pip install --no-cache-dir -q -e ./python &&
       python -m pip install --no-cache-dir -q rdflib pyshacl &&
       python -m pip install --no-cache-dir -q openapi-spec-validator &&
       python -m gorgonaut.tools.validate_shacl &&
