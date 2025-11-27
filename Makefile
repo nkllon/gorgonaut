@@ -1,8 +1,7 @@
 .PHONY: install uv py.install py.lint py.type py.test spec.ontology.validate spec.api.validate js.install js.lint js.test web.dev ci ci-docker preflight
 
-# Resolve uv/uvx regardless of PATH; prefer PATH, then $HOME/.local/bin, else fallback names
+# Resolve uv regardless of PATH; prefer PATH, then $HOME/.local/bin, else fallback name
 UV := $(shell command -v uv 2>/dev/null || { test -x "$$HOME/.local/bin/uv" && echo "$$HOME/.local/bin/uv"; } || echo uv)
-UVX := $(shell command -v uvx 2>/dev/null || { test -x "$$HOME/.local/bin/uvx" && echo "$$HOME/.local/bin/uvx"; } || echo uvx)
 
 install: py.install js.install
 	@echo "✓ All dependencies installed"
@@ -16,16 +15,16 @@ py.install: uv
 
 py.lint:
 	@echo "[py] ruff + black check"
-	$(UVX) ruff check python/src python/tests
-	$(UVX) black --check python/src python/tests
+	$(UV) tool run ruff check python/src python/tests
+	$(UV) tool run black --check python/src python/tests
 
 py.type:
 	@echo "[py] mypy"
-	$(UVX) mypy --config-file python/pyproject.toml python/src
+	$(UV) tool run mypy --config-file python/pyproject.toml python/src
 
 py.test:
 	@echo "[py] pytest"
-	$(UVX) pytest -q || true
+	$(UV) tool run pytest -q || true
 
 spec.ontology.validate:
 	@echo "[spec] SHACL validation"
