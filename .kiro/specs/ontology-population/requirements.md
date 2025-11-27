@@ -27,7 +27,7 @@ This specification defines the requirements for populating the Gorgonaut Mind To
 2. WHEN a Book instance is queried THEN the system SHALL return all associated Module instances
 3. WHEN the ontology data is validated THEN the system SHALL pass all SHACL constraints for Book and Module entities
 4. WHEN a Module is queried THEN the system SHALL return the MetaSkill it implements
-5. WHERE multiple books exist THEN the system SHALL maintain distinct namespaces or identifiers for each book
+5. WHEN multiple books exist THEN the system SHALL maintain distinct namespaces or identifiers for each book
 
 ### Requirement 2
 
