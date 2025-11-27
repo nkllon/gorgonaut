@@ -1,7 +1,7 @@
 # Ontology Structural Comparison
 
-External file: /Users/lou/Downloads/gorgonaut-mindtools (1).ttl
-Canonical file: /Volumes/lemon/kiro/gorgonaut/specs/ontology/gorgonaut-mindtools.ttl
+External file: <external-file-path>
+Canonical file: <canonical-file-path>
 
 ## Classes
 - Count (external): 24
