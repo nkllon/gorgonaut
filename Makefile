@@ -11,9 +11,7 @@ uv:
 
 py.install: uv
 	@echo "[py] install deps with uv"
-	$(UV) venv
-	$(UV) pip install -e "python/.[dev]"
-
+	$(UV) sync --dev
 py.lint:
 	@echo "[py] ruff + black check"
 	$(UV) tool run ruff check python/src python/tests
