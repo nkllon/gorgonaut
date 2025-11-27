@@ -2,6 +2,7 @@
 
 # Resolve uv regardless of PATH; prefer PATH, then $HOME/.local/bin, else fallback name
 UV := $(shell command -v uv 2>/dev/null || { test -x "$$HOME/.local/bin/uv" && echo "$$HOME/.local/bin/uv"; } || echo uv)
+PY_DIR := python
 
 install: py.install js.install
 	@echo "✓ All dependencies installed"
@@ -11,27 +12,27 @@ uv:
 
 py.install: uv
 	@echo "[py] install deps with uv"
-	$(UV) sync --dev
+	cd $(PY_DIR) && $(UV) sync --extra dev
 py.lint:
 	@echo "[py] ruff + black check"
-	$(UV) tool run ruff check python/src python/tests
-	$(UV) tool run black --check python/src python/tests
+	cd $(PY_DIR) && $(UV) run ruff check src tests
+	cd $(PY_DIR) && $(UV) run black --check src tests
 
 py.type:
 	@echo "[py] mypy"
-	$(UV) tool run mypy --config-file python/pyproject.toml python/src
+	cd $(PY_DIR) && $(UV) run mypy --config-file pyproject.toml src
 
 py.test:
 	@echo "[py] pytest"
-	$(UV) tool run pytest -q || true
+	cd $(PY_DIR) && $(UV) run pytest -q || true
 
 spec.ontology.validate:
 	@echo "[spec] SHACL validation"
-	$(UV) run -m gorgonaut.tools.validate_shacl
+	cd $(PY_DIR) && $(UV) run -m gorgonaut.tools.validate_shacl
 
 spec.api.validate:
 	@echo "[spec] OpenAPI validation"
-	$(UV) run -m gorgonaut.tools.validate_openapi
+	cd $(PY_DIR) && $(UV) run -m gorgonaut.tools.validate_openapi
 
 js.install:
 	@echo "[js] install workspaces"
@@ -65,5 +66,3 @@ ci-docker:
 kiro.spec-status:
 	@echo "Use Kiro CLI (if available) to check spec status, e.g.:"
 	@echo "/kiro/spec-status {feature}"
-
-
