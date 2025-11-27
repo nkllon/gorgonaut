@@ -10,6 +10,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Diagnostics (pre)
+        run: |
+          echo "PATH=$PATH"
+          which python || true
+          python --version
+          which node || true
+          node --version
+          which npm || true
+          npm --version
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -20,6 +29,10 @@ jobs:
         run: |
           curl -LsSf https://astral.sh/uv/install.sh | sh -s -- -y
           echo "$HOME/.local/bin" >> $GITHUB_PATH
+      - name: Diagnostics (uv)
+        run: |
+          which uv || true
+          "$HOME/.local/bin/uv" --version || true
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -31,5 +44,19 @@ jobs:
       - name: Run CI via Makefile
         run: |
           make ci
+
+  docker-parity:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Docker version
+        run: |
+          docker --version
+          docker compose version
+      - name: Run CI in containers
+        run: |
+          docker compose pull
+          make ci-docker
 
 

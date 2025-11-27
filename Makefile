@@ -1,4 +1,8 @@
-.PHONY: install uv py.install py.lint py.type py.test spec.ontology.validate spec.api.validate js.install js.lint js.test web.dev ci ci-docker
+.PHONY: install uv py.install py.lint py.type py.test spec.ontology.validate spec.api.validate js.install js.lint js.test web.dev ci ci-docker preflight
+
+# Resolve uv/uvx regardless of PATH; prefer PATH, then $HOME/.local/bin, else fallback names
+UV := $(shell command -v uv 2>/dev/null || { test -x "$$HOME/.local/bin/uv" && echo "$$HOME/.local/bin/uv"; } || echo uv)
+UVX := $(shell command -v uvx 2>/dev/null || { test -x "$$HOME/.local/bin/uvx" && echo "$$HOME/.local/bin/uvx"; } || echo uvx)
 
 install: py.install js.install
 	@echo "✓ All dependencies installed"
@@ -8,28 +12,28 @@ uv:
 
 py.install: uv
 	@echo "[py] install deps with uv"
-	uv pip install -e "python/.[dev]"
+	$(UV) pip install -e "python/.[dev]"
 
 py.lint:
 	@echo "[py] ruff + black check"
-	uvx ruff check python/src python/tests
-	uvx black --check python/src python/tests
+	$(UVX) ruff check python/src python/tests
+	$(UVX) black --check python/src python/tests
 
 py.type:
 	@echo "[py] mypy"
-	uvx mypy --config-file python/pyproject.toml python/src
+	$(UVX) mypy --config-file python/pyproject.toml python/src
 
 py.test:
 	@echo "[py] pytest"
-	uvx pytest -q || true
+	$(UVX) pytest -q || true
 
 spec.ontology.validate:
 	@echo "[spec] SHACL validation"
-	uv run -m gorgonaut.tools.validate_shacl
+	$(UV) run -m gorgonaut.tools.validate_shacl
 
 spec.api.validate:
 	@echo "[spec] OpenAPI validation"
-	uv run -m gorgonaut.tools.validate_openapi
+	$(UV) run -m gorgonaut.tools.validate_openapi
 
 js.install:
 	@echo "[js] install workspaces"
@@ -47,6 +51,10 @@ web.dev:
 	cd js/apps/web && (npm run dev || true)
 
 ci: py.install py.lint py.type py.test spec.ontology.validate spec.api.validate js.install js.lint js.test
+
+preflight:
+	@echo "[preflight] checking uv availability"
+	@{ command -v uv >/dev/null 2>&1 || [ -x "$$HOME/.local/bin/uv" ]; } || (echo "uv not found. Install uv or ensure $$HOME/.local/bin on PATH." && exit 1)
 
 ci-docker:
 	docker compose run --rm python-validate
