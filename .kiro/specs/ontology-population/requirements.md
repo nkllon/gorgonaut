@@ -75,7 +75,7 @@ This specification defines the requirements for populating the Gorgonaut Mind To
 2. WHEN solution patterns are listed THEN the system SHALL include examples like "structured brainstorming", "multi-criteria evaluation", "visual organization", and "systematic analysis"
 3. WHEN a SolutionPattern is queried THEN the system SHALL return ProblemType instances it mitigates
 4. WHEN a SolutionPattern is queried THEN the system SHALL return Tool instances that instantiate it
-5. WHERE a SolutionPattern has a weight property THEN the system SHALL store it as a decimal value
+5. WHEN a SolutionPattern has a weight property THEN the system SHALL store it as a decimal value
 
 ### Requirement 6
 
