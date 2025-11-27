@@ -11,6 +11,7 @@ uv:
 
 py.install: uv
 	@echo "[py] install deps with uv"
+	$(UV) venv
 	$(UV) pip install -e "python/.[dev]"
 
 py.lint:
