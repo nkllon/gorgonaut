@@ -116,7 +116,7 @@ cat .kiro/specs/{feature-name}/requirements.md
 
 ## Key Technologies
 
-- **Backend:** Python 3.11+, rdflib, pyshacl, uv package manager
+- **Backend:** Python 3.10+, rdflib, pyshacl, uv package manager
 - **Frontend:** React 18, TypeScript 5.6+, Vite
 - **Ontology:** OWL 2, SHACL, Turtle format, SPARQL
 - **API:** OpenAPI 3.0.3, RESTful design

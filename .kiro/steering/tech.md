@@ -3,7 +3,7 @@
 ## Technology Stack
 
 ### Backend (Python)
-- **Language**: Python 3.11+
+- **Language**: Python 3.10+
 - **Package Manager**: uv (modern, fast Python package management)
 - **Core Libraries**:
   - `rdflib` - RDF graph manipulation and SPARQL queries
