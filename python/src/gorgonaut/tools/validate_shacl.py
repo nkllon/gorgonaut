@@ -5,7 +5,7 @@ from rdflib import Graph
 from pyshacl import validate
 
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
+REPO_ROOT = Path(__file__).resolve().parents[4]
 ONTOLOGY_TTL = REPO_ROOT / "specs" / "ontology" / "gorgonaut-mindtools.ttl"
 SHACL_TTL = REPO_ROOT / "specs" / "ontology" / "gorgonaut-mindtools-shacl.ttl"
 EXAMPLES_TTL = REPO_ROOT / "specs" / "ontology" / "data" / "examples.ttl"

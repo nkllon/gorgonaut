@@ -2,7 +2,7 @@ from pathlib import Path
 from openapi_spec_validator import validate_spec
 from openapi_spec_validator.readers import read_from_filename
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
+REPO_ROOT = Path(__file__).resolve().parents[4]
 OPENAPI_PATH = REPO_ROOT / "specs" / "api" / "openapi.yaml"
 
 
