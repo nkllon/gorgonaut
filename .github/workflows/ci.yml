@@ -33,6 +33,9 @@ jobs:
         run: |
           which uv || true
           "$HOME/.local/bin/uv" --version || true
+      - name: Create uv virtualenv
+        run: |
+          "$HOME/.local/bin/uv" venv
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -41,8 +44,9 @@ jobs:
           cache: "npm"
           cache-dependency-path: "js/package-lock.json"
 
-      - name: Run CI via Makefile
+      - name: Run CI via Makefile (verbose)
         run: |
+          set -x
           make ci
 
   docker-parity:
