@@ -27,7 +27,16 @@ jobs:
 
       - name: Install uv
         run: |
-          curl -LsSf https://astral.sh/uv/install.sh | sh -s -- -y
+          set -euo pipefail
+          installer="$(mktemp)"
+          curl -LsSf https://astral.sh/uv/install.sh > "$installer"
+          if grep -q -- '--yes' "$installer"; then
+            sh "$installer" --yes
+          elif grep -q -- '-y' "$installer"; then
+            sh "$installer" -y
+          else
+            sh "$installer"
+          fi
           echo "$HOME/.local/bin" >> $GITHUB_PATH
       - name: Diagnostics (uv)
         run: |
