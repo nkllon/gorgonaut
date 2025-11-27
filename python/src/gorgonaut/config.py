@@ -20,9 +20,7 @@ class AppConfig:
         load_dotenv(override=False)
         app_env = os.getenv("APP_ENV", "development")
         log_level = os.getenv("LOG_LEVEL", "INFO")
-        openapi_spec_path = Path(
-            os.getenv("OPENAPI_SPEC_PATH", "specs/api/openapi.yaml")
-        ).resolve()
+        openapi_spec_path = Path(os.getenv("OPENAPI_SPEC_PATH", "specs/api/openapi.yaml")).resolve()
         return AppConfig(
             app_env=app_env,
             log_level=log_level,
@@ -30,7 +28,9 @@ class AppConfig:
         )
 
 
-def fetch_secret_from_1password(item: str, field: str, vault: Optional[str] = None) -> Optional[str]:
+def fetch_secret_from_1password(
+    item: str, field: str, vault: Optional[str] = None
+) -> Optional[str]:
     """
     Fetch a secret value using 1Password CLI (`op`).
     Returns None if op is not available or the fetch fails.
@@ -48,5 +48,3 @@ def fetch_secret_from_1password(item: str, field: str, vault: Optional[str] = No
         return value or None
     except Exception:
         return None
-
-

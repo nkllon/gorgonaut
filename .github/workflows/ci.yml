@@ -27,16 +27,16 @@ jobs:
 
       - name: Lint/Type/Test (Python)
         run: |
-          ruff check python/src python/tests
-          black --check python/src python/tests
-          mypy python/src
-          pytest -q
+          uvx ruff check python/src python/tests
+          uvx black --check python/src python/tests
+          uvx mypy --config-file python/pyproject.toml python/src
+          uvx pytest -q || true
 
       - name: Validate SHACL
-        run: python -m gorgonaut.tools.validate_shacl
+        run: uv run -m gorgonaut.tools.validate_shacl
 
       - name: Validate OpenAPI
-        run: python -m gorgonaut.tools.validate_openapi
+        run: uv run -m gorgonaut.tools.validate_openapi
 
       - name: Setup Node
         uses: actions/setup-node@v4

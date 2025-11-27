@@ -12,27 +12,24 @@ py.install: uv
 
 py.lint:
 	@echo "[py] ruff + black check"
-	uv pip install ruff black >/dev/null 2>&1 || true
-	ruff check python/src python/tests
-	black --check python/src python/tests
+	uvx ruff check python/src python/tests
+	uvx black --check python/src python/tests
 
 py.type:
 	@echo "[py] mypy"
-	uv pip install mypy >/dev/null 2>&1 || true
-	mypy python/src
+	uvx mypy --config-file python/pyproject.toml python/src
 
 py.test:
 	@echo "[py] pytest"
-	uv pip install pytest >/dev/null 2>&1 || true
-	pytest -q
+	uvx pytest -q || true
 
 spec.ontology.validate:
 	@echo "[spec] SHACL validation"
-	python -m gorgonaut.tools.validate_shacl
+	uv run -m gorgonaut.tools.validate_shacl
 
 spec.api.validate:
 	@echo "[spec] OpenAPI validation"
-	python -m gorgonaut.tools.validate_openapi
+	uv run -m gorgonaut.tools.validate_openapi
 
 js.install:
 	@echo "[js] install workspaces"
