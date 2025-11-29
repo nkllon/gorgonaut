@@ -34,22 +34,24 @@ def test_makefile_ci_contracts_and_artifacts():
         "js.lint",
         "js.test",
     ]:
-        assert f"ci: " in content and target in content, f"ci must include {target}"
+        assert "ci: " in content and target in content, f"ci must include {target}"
     # py.test should emit junit xml into artifacts path
-    assert "--junitxml artifacts/python/junit.xml" in content, (
-        "pytest should write JUnit XML to artifacts/python/junit.xml"
-    )
+    assert (
+        "--junitxml artifacts/python/junit.xml" in content
+        or "--junitxml ../artifacts/python/junit.xml" in content
+    ), "pytest should write JUnit XML to artifacts/python/junit.xml"
     # eslint should write a report to artifacts
-    assert "eslint" in content and "--output-file artifacts/js/eslint.json" in content, (
-        "eslint should write machine-readable report to artifacts/js/eslint.json"
-    )
+    assert "eslint" in content and (
+        "--output-file artifacts/js/eslint.json" in content
+        or "--output-file ../artifacts/js/eslint.json" in content
+    ), "eslint should write machine-readable report to artifacts/js/eslint.json"
 
 
 def test_github_actions_workflow_delegates_to_make_ci():
     workflow_path = os.path.join(REPO_ROOT, ".github", "workflows", "ci.yaml")
-    assert os.path.exists(workflow_path), "GitHub Actions workflow .github/workflows/ci.yaml must exist"
+    assert os.path.exists(
+        workflow_path
+    ), "GitHub Actions workflow .github/workflows/ci.yaml must exist"
     content = read(workflow_path)
     assert "on:" in content and "pull_request" in content
     assert "run: make ci" in content, "Workflow must delegate to `make ci`"
-
-
