@@ -24,7 +24,8 @@ py.type:
 
 py.test:
 	@echo "[py] pytest"
-	cd $(PY_DIR) && $(UV) run pytest -q || true
+	mkdir -p artifacts/python
+	cd $(PY_DIR) && $(UV) run pytest -q --junitxml ../artifacts/python/junit.xml
 
 spec.ontology.validate:
 	@echo "[spec] SHACL validation"
@@ -40,11 +41,12 @@ js.install:
 
 js.lint:
 	@echo "[js] lint (eslint minimal)"
-	cd js && npx --yes eslint . || true
+	mkdir -p artifacts/js
+	cd js && npx --yes eslint . --format json --output-file ../artifacts/js/eslint.json
 
 js.test:
 	@echo "[js] baseline tests"
-	cd js/packages/lib && (npm test || true)
+	cd js/packages/lib && npm test
 
 web.dev:
 	cd js/apps/web && (npm run dev || true)
