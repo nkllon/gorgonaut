@@ -23,6 +23,13 @@
 └── docker-compose.yml # Container orchestration
 ```
 
+### Dev Container Conventions
+- Configuration lives in `.devcontainer/devcontainer.json`; optional `postCreate.sh` provisions dependencies.
+- Features pin: Node 20, Python 3.12, common-utils.
+- Post-create: run `make install` (JS npm install; Python `uv sync --extra dev`), fallback to pip if uv unavailable.
+- Ports forwarded: 5173 (Vite), 3000 (Web), 8000 (Python); set Codespaces visibility as needed.
+- Codespaces defaults: prefer 2-core machine; document idle-stop/retention and stop/delete guidance.
+- Secrets: use platform secret stores; never commit `.env` or credentials.
 ## Python Package (`python/`)
 
 ### Structure

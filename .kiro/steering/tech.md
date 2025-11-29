@@ -37,7 +37,17 @@
 - **JS Linting**: ESLint
 - **JS Formatting**: Prettier
 - **Containerization**: Docker, docker-compose
-- **Dev Environment**: devcontainer support
+- **Dev Environment**: Dev Containers (local) and GitHub Codespaces (cloud)
+
+### Dev Environment (Dev Containers / Codespaces)
+- Toolchains: Node.js 20.x and Python 3.12 provisioned via devcontainer features.
+- Python deps: prefer `uv` (sync with `--extra dev`); fallback to `pip` in an isolated venv.
+- System deps: install `graphviz` for validators (OpenAPI/SHACL) when required.
+- Tasks: use `make install`, `make ci`, and workspace-specific npm scripts to ensure deterministic, non-interactive installs and builds.
+- Ports: forward 5173 (Vite), 3000 (web), 8000 (Python) with proper visibility in Codespaces.
+- Lifecycle: enable idle-stop in Codespaces; provide clear stop/delete guidance to avoid orphaned resources.
+- Cost controls (Codespaces): default to 2-core unless opting up; document pricing links and quotas.
+- Secrets: never commit; source from platform secret stores (Codespaces secrets, local env/devcontainer features).
 
 ## Architecture Patterns
 
