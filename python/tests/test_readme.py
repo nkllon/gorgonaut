@@ -2,8 +2,8 @@ from pathlib import Path
 
 
 def get_repo_root() -> Path:
-    # python/tests/test_readme.py -> parents[2] is "python", parents[3] is repo root
-    return Path(__file__).resolve().parents[3]
+    # python/tests/test_readme.py -> parents[2] is repo root
+    return Path(__file__).resolve().parents[2]
 
 
 def test_readme_exists_and_sections():
@@ -60,5 +60,3 @@ def test_readme_commands_and_snippets_present():
     ]
     for snippet in expected_snippets:
         assert snippet in text, f"Expected snippet missing: {snippet}"
-
-
